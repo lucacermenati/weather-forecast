@@ -1,3 +1,3 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+app_weather_forecast:
+ path: /temperature
+ controller: App\Controller\TemperatureController::temperature
