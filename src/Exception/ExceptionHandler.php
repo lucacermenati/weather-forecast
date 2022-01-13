@@ -15,7 +15,7 @@ class ExceptionHandler
         }
         
         return [
-            `An unexpected error has occurred. : ${$exception->getMessage()}`,
+            "An unexpected error has occurred :" . $exception->getMessage(),
             HttpStatusCode::BAD_REQUEST,
         ];
     }

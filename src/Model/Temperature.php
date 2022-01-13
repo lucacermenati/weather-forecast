@@ -49,6 +49,11 @@ class Temperature
         return $this;
     }
     
+    public function getPredictions()
+    {
+        return $this->predictions;
+    }
+    
     public function getPrediction($index)
     {
         return $this->predictions[$index];

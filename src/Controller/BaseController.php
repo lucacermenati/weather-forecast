@@ -32,12 +32,14 @@ class BaseController extends AbstractController
         $this->response = new JsonResponse([
             "success" => false,
             "message" => $message,
-        ], [
+        ], 
+        $statusCode,
+        [
             "Content-Type" => "application/json"
-        ], $statusCode);
+        ]);
     }
     
-    private function normalize($object) {
+    private function normalize($object): array {
         $reflectionClass = new \ReflectionClass(get_class($object));
         $array = array();
         
