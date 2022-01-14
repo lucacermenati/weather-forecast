@@ -5,22 +5,28 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Reference;
 use App\Services\TemperatureConverter\TemperatureConverterFactory;
+use App\Services\PredictionRetriever;
 
 class TemperatureConverterCompilarePass implements CompilerPassInterface 
 {
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(TemperatureConverterFactory::class)) {
+        $this->loadTaggedServices(TemperatureConverterFactory::class, 'converter', 'addConverter', $container);
+        $this->loadTaggedServices(PredictionRetriever::class, 'client', 'addClient', $container);
+    }
+    
+    private function loadTaggedServices($definitionClass, $tag, $methodCall, $container)
+    {
+        if (!$container->has($definitionClass)) {
             return;
         }
         
-        $definition = $container->findDefinition(TemperatureConverterFactory::class);
+        $definition = $container->findDefinition($definitionClass);
         
-        $taggedServices= $container->findTaggedServiceIds('converter');
+        $taggedServices= $container->findTaggedServiceIds($tag);
         
         foreach ($taggedServices as $id => $tags) {
-            // add the transport service to the TransportChain service
-            $definition->addMethodCall('addConverter', [new Reference($id)]);
+            $definition->addMethodCall($methodCall, [new Reference($id)]);
         }
     }
 }

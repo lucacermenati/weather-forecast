@@ -7,23 +7,27 @@ use App\Model\Temperature;
 use App\Exception\ExceptionHandler;
 use Symfony\Component\HttpFoundation\Request;
 use App\Exception\ApiException;
-use App\Services\TemperaturePredictor;
 use App\Enum\Scale;
+use App\Services\PredictionRetriever;
+use App\Services\TemperatureRequestValidator;
+use App\ParamConverter\TemperatureParameterConverter;
 
 class TemperatureController extends BaseController
 {
     public function temperature(
         Request $request,
-        TemperaturePredictor $temperaturePredictor,
+        TemperatureRequestValidator $requestValidator,
+        TemperatureParameterConverter $parameterConverter,
+        PredictionRetriever $predictionRetriever,
         ExceptionHandler $exceptionHandler
     ): Response
     {
         try {
-            $this->setResponseSucceeded($temperaturePredictor->predict(
-                "Amsterdam",
-                new \DateTime(),
-                Scale::FAHRENHEIT
-            ));
+            $requestValidator->validate($request);
+            $temperature = $parameterConverter->convert($request);
+            $predictionRetriever->retrieve($temperature);
+            
+            $this->setResponseSucceeded($temperature);
         } catch (\Exception $exception) {
             $this->setResponseFailed(...$exceptionHandler->handle(
                 $exception

@@ -20,7 +20,7 @@ class TemperatureConverterFactory
         throw new \Exception("No coverter found");
     }
     
-    public function addConverter($converter) 
+    public function addConverter(TemperatureConverterInterface $converter) 
     {
         $this->converters[] = $converter;
     }

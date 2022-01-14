@@ -54,9 +54,15 @@ class Temperature
         return $this->predictions;
     }
     
-    public function getPrediction($index)
+    public function getPrediction($time)
     {
-        return $this->predictions[$index];
+        foreach ($this->predictions as $prediction) {
+            if($time == $prediction->getTime()) {
+                return $prediction;
+            }
+        }
+        
+        return null;
     }
     
     public function addPrediction($prediction)
