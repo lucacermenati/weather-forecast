@@ -25,13 +25,13 @@ class TemperatureController extends BaseController
         try {
             $requestValidator->validate($request);
             $temperature = $parameterConverter->convert($request);
-            $predictionRetriever->retrieve($temperature);
             
-            $this->setResponseSucceeded($temperature);
+            $this->setResponseSucceeded($predictionRetriever->retrieve($temperature));
         } catch (\Exception $exception) {
-            $this->setResponseFailed(...$exceptionHandler->handle(
-                $exception
-            ));
+//             $this->setResponseFailed(...$exceptionHandler->handle(
+//                 $exception
+//             ));
+            throw $exception;
         }
         
         return $this->response;

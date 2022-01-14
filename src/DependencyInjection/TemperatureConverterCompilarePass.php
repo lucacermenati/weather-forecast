@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Reference;
 use App\Services\TemperatureConverter\TemperatureConverterFactory;
 use App\Services\PredictionRetriever;
 
-class TemperatureConverterCompilarePass implements CompilerPassInterface 
+class TemperatureConverterCompilarePass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {

@@ -50,8 +50,12 @@ class BaseController extends AbstractController
                 foreach ($property->getValue($object) as $element) {
                     $array[$property->getName()] [] = $this->normalize($element);
                 }
-            } elseif (is_object($property->getValue($object))) {
-                $array[$property->getName()] = $this->normalize($element);
+            } 
+            elseif($property->getValue($object) instanceof \DateTime) {
+                $array[$property->getName()] = $property->getValue($object);
+            }
+            elseif (is_object($property->getValue($object))) {
+                $array[$property->getName()] = $this->normalize($property->getValue($object));
             } else {
                 $array[$property->getName()] = $property->getValue($object);
             }
