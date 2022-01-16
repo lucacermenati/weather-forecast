@@ -5,7 +5,7 @@ namespace App;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use App\DependencyInjection\TemperatureConverterCompilarePass;
+use App\DependencyInjection\TemperatureCompilarePass;
 
 class Kernel extends BaseKernel
 {
@@ -13,6 +13,6 @@ class Kernel extends BaseKernel
     
     protected function build(ContainerBuilder $container): void
     {
-        $container->addCompilerPass(new TemperatureConverterCompilarePass());
+        $container->addCompilerPass(new TemperatureCompilarePass());
     }
 }

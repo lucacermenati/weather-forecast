@@ -1,16 +1,12 @@
 <?php
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
-use App\Model\Prediction;
-use App\Model\Temperature;
 use App\Exception\ExceptionHandler;
-use Symfony\Component\HttpFoundation\Request;
-use App\Exception\ApiException;
-use App\Enum\Scale;
-use App\Services\PredictionRetriever;
-use App\Services\TemperatureRequestValidator;
 use App\ParamConverter\TemperatureParameterConverter;
+use App\Api\TemperatureApi;
+use App\Services\Validator\TemperatureRequestValidator;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class TemperatureController extends BaseController
 {
@@ -18,22 +14,22 @@ class TemperatureController extends BaseController
         Request $request,
         TemperatureRequestValidator $requestValidator,
         TemperatureParameterConverter $parameterConverter,
-        PredictionRetriever $predictionRetriever,
+        TemperatureApi $temperatureApi,
         ExceptionHandler $exceptionHandler
     ): Response
     {
         try {
             $requestValidator->validate($request);
             $temperature = $parameterConverter->convert($request);
-//             $temperature->addPredictions($this->temperatureApi->getPredictions($temperature));
-//             $this->setResponseSucceeded($temperature);
             
-            $this->setResponseSucceeded($predictionRetriever->retrieve($temperature));
-        } catch (\Exception $exception) {
-//             $this->setResponseFailed(...$exceptionHandler->handle(
-//                 $exception
-//             ));
-            throw $exception;
+            $this->setResponseSucceeded(
+                $temperatureApi->getPrediction($temperature)
+            );
+        } 
+        catch (\Exception $exception) {
+            $this->setResponseFailed(
+                ...$exceptionHandler->handle($exception)
+            );
         }
         
         return $this->response;

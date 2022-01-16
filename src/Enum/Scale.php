@@ -3,7 +3,8 @@ namespace App\Enum;
 
 class Scale
 {
-    const CELSIUS = "CELSIUS";
-    const FAHRENHEIT = "FAHRENHEIT";
+    const CELSIUS = "celsius";
+    const FAHRENHEIT = "fahrenheit";
+    const REAMUR = "reamur";
 }
 

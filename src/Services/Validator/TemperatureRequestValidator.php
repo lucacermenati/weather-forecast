@@ -1,5 +1,5 @@
 <?php
-namespace App\Services;
+namespace App\Services\Validator;
 
 use Symfony\Component\HttpFoundation\Request;
 use App\Exception\ApiException;

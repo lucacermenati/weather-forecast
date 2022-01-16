@@ -8,12 +8,12 @@ class BaseConverter implements TemperatureConverterInterface
 {
     public function canConvert(string $actualScale, string $desiredScale): bool
     {
-        return strtoupper($actualScale) == strtoupper($desiredScale);
+        return $actualScale == $desiredScale;
     }
 
     public function convert(Temperature $temperature)
     {
-        //no conversion.
+        // no conversion.
     }
 
 }

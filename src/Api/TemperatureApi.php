@@ -1,14 +1,12 @@
 <?php
-namespace App\Services;
+namespace App\Api;
 
 use App\Model\Temperature;
-use App\Enum;
-use App\Services\TemperatureConverter\TemperatureConverterFactory;
-use App\Enum\Scale;
-use App\Model\Prediction;
 use App\Services\TemperatureClient\TemperatureClientInterface;
+use App\Services\TemperatureConverter\TemperatureConverterFactory;
+use App\Services\Reducer\TemperatureReducer;
 
-class PredictionRetriever
+class TemperatureApi
 {
     /** @var TemperatureClientInterface[] **/
     private $temperatureClients;
@@ -16,17 +14,23 @@ class PredictionRetriever
     /** @var TemperatureConverterFactory **/
     private $temperatureConverterFactory;
     
-    public function __construct(TemperatureConverterFactory $temperatureConverterFactory)
-    {
+    /** @var TemperatureReducer **/
+    private $temperatureReducer;
+    
+    public function __construct(
+        TemperatureConverterFactory $temperatureConverterFactory,
+        TemperatureReducer $temperatureReducer
+    ) {
         $this->temperatureConverterFactory = $temperatureConverterFactory;
+        $this->temperatureReducer = $temperatureReducer;
     }
     
-    public function retrieve(Temperature $requestedTemperature)
+    public function getPrediction(Temperature $requestedTemperature)
     {
         $temperatures = [];
         
         foreach ($this->temperatureClients as $client) {
-            $currentTemperature = $client->getTemperature($requestedTemperature);
+            $currentTemperature = $client->getPrediction($requestedTemperature);
             
             $this->temperatureConverterFactory->get($currentTemperature->getScale(),
                 $requestedTemperature->getScale())->convert($currentTemperature);
@@ -34,13 +38,7 @@ class PredictionRetriever
             $temperatures [] = $currentTemperature;
         }
         
-        var_dump("-----HEY ITS ME------");
-        foreach ($temperatures as $temperature) {
-            var_dump($temperature);
-            var_dump("-----------");
-        }
-        
-//         return $this->temperatureReducer->reduce($temperatures);
+        return $this->temperatureReducer->avg($temperatures);
     }
     
     public function addClient(TemperatureClientInterface $client) 

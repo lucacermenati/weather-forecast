@@ -11,7 +11,7 @@ abstract class BaseTemperatureClient implements TemperatureClientInterface
         return file_get_contents($request, 'r');
     }
     
-    public function getTemperature(Temperature $temperature): Temperature
+    public function getPrediction(Temperature $temperature): Temperature
     {
         $request = $this->createRequest($temperature);
         $response = $this->sendRequest($request);

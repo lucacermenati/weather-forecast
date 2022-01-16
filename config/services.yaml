@@ -12,10 +12,10 @@ services:
             - '../src/Entity/'
            # - '../src/Kernel.php'
             - '../src/Tests/'
-            
+         
+    App\Api\TemperatureApi: ~
+       
     App\Services\TemperatureConverter\TemperatureConverterFactory: ~
-    
-    App\Services\PredictionRetriever: ~
             
     App\Services\TemperatureConverter\CelsiusToFahrenheitConverter:
         tags: ['converter']

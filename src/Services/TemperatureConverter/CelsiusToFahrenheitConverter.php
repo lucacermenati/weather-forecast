@@ -9,8 +9,8 @@ class CelsiusToFahrenheitConverter implements TemperatureConverterInterface
 {
     public function canConvert(string $actualScale, string $desiredScale): bool
     {
-        return strtoupper($actualScale) == Scale::CELSIUS
-        && strtoupper($desiredScale) == Scale::FAHRENHEIT;
+        return $actualScale == Scale::CELSIUS
+            && $desiredScale == Scale::FAHRENHEIT;
     }
 
     public function convert(Temperature $temperature)

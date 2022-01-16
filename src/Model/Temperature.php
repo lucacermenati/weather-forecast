@@ -15,12 +15,12 @@ class Temperature
     
     public function getScale() 
     {
-        return $this->scale;
+        return strtolower($this->scale);
     }
     
     public function setScale($scale)
     {
-        $this->scale = $scale;
+        $this->scale = strtolower($scale);
         
         return $this;
     }

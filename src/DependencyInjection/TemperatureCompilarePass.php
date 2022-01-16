@@ -5,14 +5,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Reference;
 use App\Services\TemperatureConverter\TemperatureConverterFactory;
-use App\Services\PredictionRetriever;
+use App\Api\TemperatureApi;
 
-class TemperatureConverterCompilarePass implements CompilerPassInterface
+class TemperatureCompilarePass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
         $this->loadTaggedServices(TemperatureConverterFactory::class, 'converter', 'addConverter', $container);
-        $this->loadTaggedServices(PredictionRetriever::class, 'client', 'addClient', $container);
+        $this->loadTaggedServices(TemperatureApi::class, 'client', 'addClient', $container);
     }
     
     private function loadTaggedServices($definitionClass, $tag, $methodCall, $container)
