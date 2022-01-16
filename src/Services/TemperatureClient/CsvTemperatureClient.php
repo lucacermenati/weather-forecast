@@ -10,10 +10,13 @@ use App\Enum\DateTimeFormat;
 
 class CsvTemperatureClient extends BaseTemperatureClient implements TemperatureClientInterface
 {
-    public function getTemperature(Temperature $requestedTemperature): Temperature
+    public function createRequest(Temperature $temperature): string
     {
-        $response = file_get_contents(__DIR__.'/../../Resources/temps.csv', 'r');
-        
+        return __DIR__.'/../../Resources/temps.csv';
+    }
+    
+    public function parseResponse(string $response): Temperature
+    {
         $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
         $csv = $serializer->decode($response, 'csv');
         

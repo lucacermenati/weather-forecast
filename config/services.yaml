@@ -26,11 +26,11 @@ services:
     App\Services\TemperatureConverter\BaseConverter:
         tags: ['converter']
         
-    App\Services\TemperatureClient\CsvTemperatureClient:
-        tags: ['client']
-        
     App\Services\TemperatureClient\JsonTemperatureClient:
         tags: ['client']
         
     App\Services\TemperatureClient\XmlTemperatureClient:
-        tags: ['client']
+        tags: ['clientx']
+        
+    App\Services\TemperatureClient\CsvTemperatureClient:
+        tags: ['clientx']

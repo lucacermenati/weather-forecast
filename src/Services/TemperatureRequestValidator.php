@@ -10,7 +10,7 @@ class TemperatureRequestValidator
     public function validate(Request $request)
     {
         $this->validateNotNull($request);
-        $this->validateDay($request->get('day'));
+        $this->validateDay($request->get('date'));
     }
         
     private function validateNotNull(Request $request)
@@ -19,8 +19,8 @@ class TemperatureRequestValidator
             throw new ApiException("Missing mandatory parameter 'city'", HttpStatusCode::BAD_REQUEST);
         }
         
-        if(! $request->get('day')) {
-            throw new ApiException("Missing mandatory parameter 'day'", HttpStatusCode::BAD_REQUEST);
+        if(! $request->get('date')) {
+            throw new ApiException("Missing mandatory parameter 'date'", HttpStatusCode::BAD_REQUEST);
         }
     }
     

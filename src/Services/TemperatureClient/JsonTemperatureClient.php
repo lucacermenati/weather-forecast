@@ -9,26 +9,28 @@ use App\Model\Prediction;
 
 class JsonTemperatureClient extends BaseTemperatureClient implements TemperatureClientInterface
 {
-    public function getTemperature(Temperature $temperature): Temperature
+    public function createRequest(Temperature $temperature): string
     {
-        $response = file_get_contents(__DIR__.'/../../Resources/temps.json', 'r');
-        
+        return __DIR__.'/../../Resources/temps.json';
+    }
+    
+    public function parseResponse(string $response): Temperature
+    {
         $serializer = new Serializer([new ObjectNormalizer()], [new JsonEncoder()]);
         $json = $serializer->decode($response, 'json')["predictions"];
         
-        $temperature = new Temperature();
-        $temperature->setScale($json["scale"]);
-        $temperature->setCity($json["city"]);
-        $temperature->setDay($json["date"]);
+        /** @var Temperature $temperature **/
+        $temperature = $serializer->denormalize($json, Temperature::class);
         
-        foreach ($json["prediction"] as $currentPrediction) {
-            $prediction = new Prediction();
-            $prediction->setTime($currentPrediction["time"]);
-            $prediction->setValue($currentPrediction["value"]);
-            $temperature->addPrediction($prediction);
+        foreach ($json["prediction"] as $prediction) {
+            $temperature->addPrediction(
+                $serializer->denormalize($prediction, Prediction::class)
+            );
         }
         
+        var_dump($temperature);
+        
         return $temperature;
-    }  
+    }
 }
 

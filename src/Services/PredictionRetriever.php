@@ -34,7 +34,7 @@ class PredictionRetriever
             $temperatures [] = $currentTemperature;
         }
         
-        var_dump($temperatures);
+//         var_dump($temperatures);
         
 //         return $this->temperatureReducer->reduce($temperatures);
     }

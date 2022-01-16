@@ -9,10 +9,13 @@ use App\Model\Prediction;
 
 class XmlTemperatureClient extends BaseTemperatureClient implements TemperatureClientInterface
 {
-    public function getTemperature(Temperature $temperature): Temperature
+    public function createRequest(Temperature $temperature): string
     {
-        $response = file_get_contents(__DIR__.'/../../Resources/temps.xml', 'r');
-        
+        return __DIR__.'/../../Resources/temps.xml';
+    }
+    
+    public function parseResponse(string $response): Temperature
+    {
         $serializer = new Serializer([new ObjectNormalizer()], [new XmlEncoder()]);
         $xml = $serializer->decode($response, 'xml');
         

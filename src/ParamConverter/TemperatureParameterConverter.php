@@ -10,7 +10,7 @@ class TemperatureParameterConverter
     {
         $temperature = new Temperature();
         $temperature->setCity($request->get('city'));
-        $temperature->setDay($request->get('day'));
+        $temperature->setDate($request->get('date'));
         $temperature->setScale($request->get('scale'));
         
         return $temperature;

@@ -5,7 +5,7 @@ class Temperature
 {
     private $scale;
     private $city;
-    private $day; //or date
+    private $date;
     private $predictions;
     
     public function __construct()
@@ -37,14 +37,14 @@ class Temperature
         return $this;
     }
     
-    public function getDay()
+    public function getDate()
     {
-        return $this->day;
+        return $this->date;
     }
     
-    public function setDay($day)
+    public function setDate($date)
     {
-        $this->day = $day;
+        $this->date = $date;
         
         return $this;
     }
@@ -52,6 +52,13 @@ class Temperature
     public function getPredictions()
     {
         return $this->predictions;
+    }
+    
+    public function setPredictions($predictions)
+    {
+        $this->predictions = $predictions;
+        
+        return $this;
     }
     
     public function getPrediction($time)
