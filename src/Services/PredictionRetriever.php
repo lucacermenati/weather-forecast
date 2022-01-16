@@ -34,7 +34,11 @@ class PredictionRetriever
             $temperatures [] = $currentTemperature;
         }
         
-//         var_dump($temperatures);
+        var_dump("-----HEY ITS ME------");
+        foreach ($temperatures as $temperature) {
+            var_dump($temperature);
+            var_dump("-----------");
+        }
         
 //         return $this->temperatureReducer->reduce($temperatures);
     }

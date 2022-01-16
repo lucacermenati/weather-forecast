@@ -21,12 +21,12 @@ class Prediction
     
     public function getValue()
     {
-        return $this->value;
+        return (int) $this->value;
     }
     
     public function setValue($value)
     {
-        $this->value = $value;
+        $this->value = (int) $value;
         
         return $this;
     }

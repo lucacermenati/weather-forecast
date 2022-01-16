@@ -16,6 +16,7 @@ class CelsiusToFahrenheitConverter implements TemperatureConverterInterface
     public function convert(Temperature $temperature)
     {
         $temperature->setScale(Scale::FAHRENHEIT);
+        
         /** @var \App\Model\Prediction $prediction **/
         foreach ($temperature->getPredictions() as $prediction) {
             $prediction->setValue(($prediction->getValue() * 9/5) + 32);

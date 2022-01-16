@@ -17,18 +17,16 @@ class XmlTemperatureClient extends BaseTemperatureClient implements TemperatureC
     public function parseResponse(string $response): Temperature
     {
         $serializer = new Serializer([new ObjectNormalizer()], [new XmlEncoder()]);
-        $xml = $serializer->decode($response, 'xml');
+        $xml = $serializer->decode($response, "xml");
         
-        $temperature = new Temperature();
+        /** @var Temperature $temperature **/
+        $temperature = $serializer->denormalize($xml, Temperature::class);
         $temperature->setScale($xml["@scale"]);
-        $temperature->setCity($xml["city"]);
-        $temperature->setDay($xml["date"]);
         
-        foreach ($xml["prediction"] as $currentPrediction) {
-            $prediction = new Prediction();
-            $prediction->setTime($currentPrediction["time"]);
-            $prediction->setValue($currentPrediction["value"]);
-            $temperature->addPrediction($prediction);
+        foreach ($xml["prediction"] as $prediction) {
+            $temperature->addPrediction(
+                $serializer->denormalize($prediction, Prediction::class)
+            );
         }
         
         return $temperature;

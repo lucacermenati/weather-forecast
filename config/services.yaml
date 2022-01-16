@@ -30,7 +30,7 @@ services:
         tags: ['client']
         
     App\Services\TemperatureClient\XmlTemperatureClient:
-        tags: ['clientx']
+        tags: ['client']
         
     App\Services\TemperatureClient\CsvTemperatureClient:
-        tags: ['clientx']
+        tags: ['client']

@@ -17,7 +17,7 @@ class JsonTemperatureClient extends BaseTemperatureClient implements Temperature
     public function parseResponse(string $response): Temperature
     {
         $serializer = new Serializer([new ObjectNormalizer()], [new JsonEncoder()]);
-        $json = $serializer->decode($response, 'json')["predictions"];
+        $json = $serializer->decode($response, "json")["predictions"];
         
         /** @var Temperature $temperature **/
         $temperature = $serializer->denormalize($json, Temperature::class);
@@ -27,8 +27,6 @@ class JsonTemperatureClient extends BaseTemperatureClient implements Temperature
                 $serializer->denormalize($prediction, Prediction::class)
             );
         }
-        
-        var_dump($temperature);
         
         return $temperature;
     }

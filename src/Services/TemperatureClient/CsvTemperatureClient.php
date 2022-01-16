@@ -32,12 +32,12 @@ class CsvTemperatureClient extends BaseTemperatureClient implements TemperatureC
             }
             
             if($line["date"]) {
-                $temperature->setDay((new \DateTime($line["date"]))->format(DateTimeFormat::DATE));
+                $temperature->setDate($line["date"]);
             }
             
             $prediction = new Prediction();
-            $prediction->setTime((new \DateTime($line["prediction__time"]))->format(DateTimeFormat::TIME));
-            $prediction->setValue((int) $line["prediction__value"]);
+            $prediction->setTime($line["prediction__time"]);
+            $prediction->setValue($line["prediction__value"]);
             
             $temperature->addPrediction($prediction);
         }
