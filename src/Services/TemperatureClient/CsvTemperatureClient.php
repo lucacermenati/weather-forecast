@@ -35,11 +35,9 @@ class CsvTemperatureClient extends BaseTemperatureClient implements TemperatureC
                 $temperature->setDate($line["date"]);
             }
             
-            $prediction = new Prediction();
-            $prediction->setTime($line["prediction__time"]);
-            $prediction->setValue($line["prediction__value"]);
-            
-            $temperature->addPrediction($prediction);
+            $temperature->setPrediction($line["prediction__time"], 
+                $line["prediction__value"]
+            );
         }
         
         return $temperature;

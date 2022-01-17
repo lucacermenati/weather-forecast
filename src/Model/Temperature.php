@@ -7,7 +7,7 @@ class Temperature
     private $city;
     private $date;
     private $predictions;
-    private $createdDate;
+    private $predictionDate;
     
     public function __construct()
     {
@@ -96,14 +96,14 @@ class Temperature
         return $this;
     }
     
-    public function getCreatedDate()
+    public function getPredictionDate()
     {
-        return $this->createdDate;
+        return $this->predictionDate;
     }
     
-    public function setCreatedDate($createdDate)
+    public function setPredictionDate($predictionDate)
     {
-        $this->createdDate = $createdDate;
+        $this->predictionDate = $predictionDate;
         
         return $this;
     }

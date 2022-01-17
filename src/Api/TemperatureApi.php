@@ -61,7 +61,7 @@ class TemperatureApi
         
         $temperature = $this->temperatureReducer->avg($temperatures);
         
-        //This is just because date is static on the files, in a real life situtation shuoldn' be there.
+        //This is just because date is static on the files, in a real life situtation won't be there.
         $temperature->setDate($requestedTemperature->getDate());
         
         return $temperature;

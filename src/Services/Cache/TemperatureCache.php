@@ -31,7 +31,7 @@ class TemperatureCache
     
     public function store(Temperature $temperature)
     {
-        $temperature->setCreatedDate((new \DateTime("now"))->format(DateTimeFormat::FULL_DATE_TIME));
+        $temperature->setPredictionDate((new \DateTime("now"))->format(DateTimeFormat::FULL_DATE_TIME));
         $item = self::$cache->getItem($temperature->getCity(). "" .$temperature->getDate());
         $item->set($temperature);
         self::$cache->save($item);
@@ -42,10 +42,10 @@ class TemperatureCache
         self::$cache->clear();
     }
     
-    private function isValid($temperature): bool {
+    private function isValid(Temperature $temperature): bool {
         $now = new \DateTime("now");
-        $createdDate = new \DateTime($temperature->getCreatedDate());
-        $lastValidDate = $createdDate->add(new \DateInterval("PT1M"));
+        $predictionDate = new \DateTime($temperature->getPredictionDate());
+        $lastValidDate = $predictionDate->add(new \DateInterval("PT1M"));
         
         return $lastValidDate > $now;
     }
