@@ -3,7 +3,6 @@ namespace App\Services\TemperatureConverter;
 
 use App\Enum\Scale;
 use App\Exception\ApiException;
-use App\Services\TemperatureAdapter\TemperatureConverterInterface;
 
 class TemperatureConverterFactory
 {

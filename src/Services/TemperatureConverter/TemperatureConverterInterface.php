@@ -1,5 +1,5 @@
 <?php
-namespace App\Services\TemperatureAdapter;
+namespace App\Services\TemperatureConverter;
 
 use App\Model\Temperature;
 

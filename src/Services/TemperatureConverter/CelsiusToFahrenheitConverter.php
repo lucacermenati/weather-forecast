@@ -2,7 +2,6 @@
 namespace App\Services\TemperatureConverter;
 
 use App\Model\Temperature;
-use App\Services\TemperatureAdapter\TemperatureConverterInterface;
 use App\Enum\Scale;
 
 class CelsiusToFahrenheitConverter implements TemperatureConverterInterface
