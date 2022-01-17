@@ -17,14 +17,12 @@ class TemperatureCache
     
     public function find(Temperature $temperature): ?Temperature
     {
-        $itemSearched = self::$cache->get($temperature->getCity(). "" .$temperature->getDate(), function ($item) {
+        $item = self::$cache->get($temperature->getCity(). "" .$temperature->getDate(), function ($item) {
             
         });
         
-        /** @var \Symfony\Component\Cache\CacheItem $ItemSearched **/
-        if($itemSearched) {
-            self::$cache->clear();
-            return $itemSearched;
+        if($item && $this->isNotExpired($item)) {
+                return $item;
         }
         
         return null;
@@ -32,10 +30,20 @@ class TemperatureCache
     
     public function store(Temperature $temperature)
     {
+        $temperature->setCreatedDate((new \DateTime("now")));
         $item = self::$cache->getItem($temperature->getCity(). "" .$temperature->getDate());
         $item->set($temperature);
         self::$cache->save($item);
-        var_dump("STORED!");
+    }
+    
+    private function isNotExpired($temperature): bool {
+        if (new \DateTime($temperature->getCreatedDate()) < (new \DateTime("now"))->add(new \DateInterval("P1M"))) {
+            var_dump("not expired");
+            return true;
+        } else {
+            var_dump("expired");
+            return false;
+        }
     }
 }
 
