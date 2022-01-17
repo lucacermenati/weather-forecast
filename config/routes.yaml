@@ -1,3 +1,6 @@
 app_weather_forecast:
  path: /temperature
  controller: App\Controller\TemperatureController::temperature
+app_weather_forecast_cache:
+ path: /cache/clear
+ controller: App\Controller\TemperatureCacheController::clear
