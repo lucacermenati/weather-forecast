@@ -27,9 +27,10 @@ class TemperatureController extends BaseController
             );
         } 
         catch (\Exception $exception) {
-            $this->setResponseFailed(
-                ...$exceptionHandler->handle($exception)
-            );
+//             $this->setResponseFailed(
+//                 ...$exceptionHandler->handle($exception)
+//             );
+                throw $exception;
         }
         
         return $this->response;

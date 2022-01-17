@@ -17,7 +17,7 @@ class TemperatureConverterFactory
             }
         }
         
-        throw new \Exception("No coverter found: ". $actualScale . " " . $desiredScale);
+        throw new ApiException("No coverter found for scales: ". $actualScale . ", " . $desiredScale);
     }
     
     public function addConverter(TemperatureConverterInterface $converter) 

@@ -7,6 +7,7 @@ class Temperature
     private $city;
     private $date;
     private $predictions;
+    private $createdDate;
     
     public function __construct()
     {
@@ -72,9 +73,37 @@ class Temperature
         return null;
     }
     
+    public function setPrediction($time, $value)
+    {
+        foreach ($this->predictions as $prediction) {
+            if($time == $prediction->getTime()) {
+                $prediction->setValue($value);
+                return;
+            }
+        }
+        
+        $prediction = new Prediction();
+        $prediction->setTime($time)
+            ->setValue($value);
+        
+        $this->addPrediction($prediction);
+    }
+    
     public function addPrediction($prediction)
     {
         $this->predictions [] = $prediction;
+        
+        return $this;
+    }
+    
+    public function getCreatedDate()
+    {
+        return $this->createdDate;
+    }
+    
+    public function setCreatedDate($createdDate)
+    {
+        $this->createdDate = $createdDate;
         
         return $this;
     }
