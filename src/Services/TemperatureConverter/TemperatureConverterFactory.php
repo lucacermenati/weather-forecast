@@ -3,6 +3,7 @@ namespace App\Services\TemperatureConverter;
 
 use App\Enum\Scale;
 use App\Exception\ApiException;
+use App\Enum\HttpStatusCode;
 
 class TemperatureConverterFactory
 {
@@ -16,7 +17,9 @@ class TemperatureConverterFactory
             }
         }
         
-        throw new ApiException("No coverter found for scales: ". $actualScale . ", " . $desiredScale);
+        throw new ApiException("No coverter found for scales: ". $actualScale . ", " . $desiredScale, 
+            HttpStatusCode::BAD_REQUEST
+        );
     }
     
     public function addConverter(TemperatureConverterInterface $converter) 
