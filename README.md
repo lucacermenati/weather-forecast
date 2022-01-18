@@ -16,3 +16,13 @@ start symfony dev server:
 ```symfony server:start```
 
 the app is available at http://localhost:8000/temperature
+
+## Api
+The only available endpoint is /temperature. Here is it possible to retrieve temperature prediction for today and a day in the future 10 days.
+parameters:
+- city, string
+- date, string in the format Ymd (20220101)
+- scale, string in this range of values ('celsius', 'fahrenheit')
+
+
+calling /cache/clear is it possible to clear the cache used by the application. It can be useful for testing porpouses.
