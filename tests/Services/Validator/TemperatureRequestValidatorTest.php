@@ -10,7 +10,6 @@ use App\Exception\ApiException;
  */
 class TemperatureRequestValidatorTest extends PHPUnit\Framework\TestCase
 {
-
     /** @var TemperatureRequestValidator */
     private $temperatureRequestValidator;
 
@@ -24,7 +23,7 @@ class TemperatureRequestValidatorTest extends PHPUnit\Framework\TestCase
         $this->temperatureRequestValidator = null;
     }
 
-    public function testValidateDaysInThePast()
+    public function testDaysInThePastThrowException()
     {
         $request = new Request();
         $request->attributes->set("date", "2000101");
