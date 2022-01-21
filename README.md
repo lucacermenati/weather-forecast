@@ -27,7 +27,7 @@ start symfony dev server:
 the app is available at http://localhost:8000/temperature
 
 ### Run tests
-```./vendor/bin/phpunit ./tests
+```./vendor/bin/phpunit ./tests```
 
 ### Api
 The only available endpoint is /temperature. Here is it possible to retrieve temperature prediction for today and a day in the future 10 days.
