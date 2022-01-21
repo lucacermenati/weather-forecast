@@ -1,4 +1,6 @@
 # weather-forecast
+
+### Start the application in your local (dev mode)
 clone the repository in your local:
 
 ```git clone git@github.com:lucacermenati/weather-forecast.git```
@@ -17,7 +19,7 @@ start symfony dev server:
 
 the app is available at http://localhost:8000/temperature
 
-## Api
+### Api
 The only available endpoint is /temperature. Here is it possible to retrieve temperature prediction for today and a day in the future 10 days.
 parameters:
 - city, string
